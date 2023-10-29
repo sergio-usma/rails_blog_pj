@@ -1,23 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  it 'is valid with a post_id and user_id' do
-    user = User.create(name: 'John Doe')
-    post = Post.create(title: 'Lorem ipsum', comments_counter: 0, likes_counter: 0, author_id: user.id, author: user)
-    like = Like.new(post_id: post.id, user_id: user.id)
-    expect(like).to be_valid
+  describe 'associations' do
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:post) }
   end
 
-  it 'is invalid without a post_id' do
-    user = User.create(name: 'John Doe')
-    like = Like.new(user_id: user.id)
-    expect(like).to_not be_valid
+  describe 'validations' do
+    subject { FactoryBot.create(:like) }
+    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:post_id) }
   end
 
-  it 'is invalid without a user_id' do
-    user = User.create(name: 'John Doe')
-    post = Post.create(title: 'Lorem ipsum', comments_counter: 0, likes_counter: 0, author_id: user.id, author: user)
-    like = Like.new(post_id: post.id)
-    expect(like).to_not be_valid
+  describe 'callbacks' do
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:post) { FactoryBot.create(:post, author: user) }
+
+    it 'updates the likes_counter of post after creating a like' do
+      expect {
+        FactoryBot.create(:like, user: user, post: post)
+      }.to change { post.reload.likes_counter }.by(1)
+    end
   end
 end
+
