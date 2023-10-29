@@ -18,8 +18,8 @@ RSpec.describe Post, type: :model do
     let(:post) { create(:post) }
 
     it 'returns the 5 most recent comments' do
-      old_comments = create_list(:comment, 2, post: post, created_at: 2.days.ago)
-      new_comments = create_list(:comment, 3, post: post, created_at: 1.day.ago)
+      old_comments = create_list(:comment, 2, post:, created_at: 2.days.ago)
+      new_comments = create_list(:comment, 3, post:, created_at: 1.day.ago)
       post.reload
 
       expect(post.recent_comments.size).to eq(5)
