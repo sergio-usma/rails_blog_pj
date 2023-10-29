@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :post do
-    title { 'Sample Post Title' }
+    association :author, factory: :user
+    title { "Sample Post Title" }
+    text { "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }
     comments_counter { 0 }
     likes_counter { 0 }
-    association :author, factory: :user
   end
 end
