@@ -27,7 +27,6 @@ RSpec.describe Post, type: :model do
     end
   end
 
-
   describe '#update_post_counter' do
     let(:user) { create(:user) }
 
