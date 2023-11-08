@@ -18,12 +18,10 @@
     <div class="col-sm-12 border rounded my-1">
       <div class="align-items-baseline d-flex justify-content-between">
         <h5 class="user-name py-3">
-          Post <%= @post.id %> by <%= @user.name %>
+          Post <%= @post.id %> by <%= link_to @user.name, user_path(@user), title: "To User Details" %>
         </h5>
-
         <p><%= @post.comments.count %> comments</p>
         <p><%= @post.likes.count %> Likes</p>
-
       </div>
       <h5 class="user-name">
         Post Title: <%= @post.title %>
@@ -46,6 +44,16 @@
           <% end %>
         <% end %>
       </ul>
+    </div>
+  </div>
+
+  <div>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center mb-3">
+          <%= link_to "Back to User Posts", user_posts_path(@user), class: "btn btn-primary" %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
