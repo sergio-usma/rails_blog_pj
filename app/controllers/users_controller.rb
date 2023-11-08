@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user
       @posts = @user.posts
     else
-      redirect_to users_path, alert: "User not found."
+      redirect_to users_path, alert: 'User not found.'
     end
   end
 end
