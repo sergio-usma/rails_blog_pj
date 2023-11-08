@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-EN">
 <head>
   <title>User Details</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -28,8 +28,7 @@
         <%= @user.name %>
       </h5>
       <p class="user-posts text-right">
-        Number of posts: <%= link_to @user.posts_counter, user_posts_path(@user) %>
-      </p>
+        <%= link_to "Number of posts: #{@user.posts_counter}", user_posts_path(@user), title:"To User Posts" %>       </p>
     </div>
   </div>
 </div>
