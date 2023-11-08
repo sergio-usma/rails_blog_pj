@@ -29,7 +29,7 @@
               <div class="d-flex align-items-center">
                 <div class="user-info w-100">
                   <h5 class="user-name">
-                    <%= user.name %>
+                      <%= link_to user.name, user_path(user) %>
                   </h5>
                   <p class="user-posts text-right">
                     Number of posts: <%= user.posts_counter %>
