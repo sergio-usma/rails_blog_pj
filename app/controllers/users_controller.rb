@@ -4,13 +4,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @posts = @user.posts
-  end
-
-  def posts
-    @user = User.find(params[:id])
-    @posts = @user.posts
-    @user_name = @user.name
+    @user = User.find_by(id: params[:user_id])
+    if @user
+      @posts = @user.posts
+    else
+      redirect_to users_path, alert: "User not found."
+    end
   end
 end
