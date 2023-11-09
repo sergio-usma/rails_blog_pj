@@ -4,43 +4,18 @@
   <title>User Profile</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-      .user-photo {
-          object-fit: cover;
-          width: 80px;
-          height: 80px;
-      }
-      .user-info {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-      }
-      .user-info h1, .user-info p {
-          margin-bottom: 0;
-      }
-      .post-item {
-          margin-bottom: 1rem;
-      }
-      .post-item h5, .post-item p {
-          margin-bottom: .5rem;
-      }
-      .bio-section p {
-          white-space: pre-line;
-      }
-  </style>
 </head>
 <body>
 <div class="container py-4">
 
-  <!-- User Header Section -->
   <div class="row">
     <div class="col-12">
       <div class="user-info d-flex justify-content-between">
         <div class="mr-3">
           <% if @user.photo && @user.photo.match(/\.(png|jpg|jpeg|gif)$/i) %>
-            <img src="<%= @user.photo %>" alt="User Photo" class="user-photo">
+            <img src="<%= @user.photo %>" alt="User Photo" class="user-photo" style="width: 80px; height: 80px;">
           <% else %>
-            <div class="user-photo">User<%= @user.id %> Pic</div>
+            <div class="user-photo" style="width: 150px; height: 150px;">User<%= @user.id %> Pic</div>
           <% end %>
         </div>
         <div class="d-flex justify-content-between border p-3 w-75">
@@ -65,7 +40,7 @@
   <% @posts.each do |post| %>
     <div class="row">
       <div class="col-12 post-item">
-        <div class="p-3 border rounded">
+        <div class="p-3 mt-2 border rounded">
           <h6>Post <%= post.id %></h6>
           <h3><%= post.title %></h3>
           <p><%= post.text %></p>
@@ -76,7 +51,7 @@
   <% end %>
 
 <div>
-  <div class="container ">
+  <div class="container mt-4">
     <div class="row">
       <div class="col text-center mb-3">
         <a href="/" class="btn btn-primary">See all posts</a>
