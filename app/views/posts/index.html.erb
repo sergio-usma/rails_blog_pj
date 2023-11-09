@@ -6,11 +6,24 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 class="mt-2">User <%= @user_name %> Posts</h1>
-      <p class="lead">Here you can see all the posts by this user.</p>
+<div class="row">
+  <div class="col-12">
+
+  </div>
+</div>
+
+<div class="container py-4">
+  <div class="row d-flex justify-content-between mb-2">
+    <div class="mr-3">
+      <% if @user.photo && @user.photo.match(/\.(png|jpg|jpeg|gif)$/i) %>
+        <img src="<%= @user.photo %>" alt="User Photo" class="user-photo" style="width: 80px; height: 80px;">
+      <% else %>
+        <div class="user-photo" style="width: 80px; height: 80px;">User<%= @user.id %> Pic</div>
+      <% end %>
+    </div>
+    <div class="d-flex justify-content-between border p-3 w-75">
+      <h1><%= @user.name %></h1>
+      <p class="mt-4 text-muted"><%= link_to "Number of posts: #{@user.posts_counter}", user_posts_path(@user), class: "text-muted" %></p>
     </div>
   </div>
 
@@ -22,24 +35,24 @@
     <% else %>
       <% @posts.each do |post| %>
         <div class="col-sm-12 border rounded my-1">
-          <h5 class="user-name py-3">
-            <%= link_to "Post #{post.id}", user_post_path(@user, post), title: "To Post Details" %>
-          </h5>
-          <h3 class="user-name">
+          <h6 class="user-name pt-3">
+            <%= link_to "Post #{post.id}", user_post_path(@user, post), title: "To Post Details", class: "text-muted" %>
+          </h6>
+          <h3>
             <%= post.title %>
           </h3>
-          <p class="user-name">
+          <p>
             <%= post.text %>
           </p>
         </div>
 
         <div class="col-sm-12 border rounded mb-5">
-          <h4 class="user-name">Comments:</h4>
+          <h4>Comments:</h4>
           <% if post.comments.empty? %>
-            <p class="user-name">This post has no comments.</p>
+            <p>This post has no comments.</p>
           <% else %>
             <% post.comments.each do |comment| %>
-              <p class="user-name">
+              <p>
                 <%= comment.user.name %>: <%= comment.text %>
               </p>
             <% end %>
@@ -54,7 +67,7 @@
   <div class="container">
     <div class="row">
       <div class="col text-center mb-3">
-        <%= link_to "Back to User Details", user_path(@user), class: "btn btn-primary" %>
+        <%= link_to "Pagination", user_path(@user), class: "btn btn-primary" %>
       </div>
     </div>
   </div>
