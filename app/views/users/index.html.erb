@@ -10,20 +10,20 @@
   <h1 class="mt-5">All Users</h1>
   <p class="lead">Here you can see all the users of the blog.</p>
   <div class="row">
-    <ul class="list-group my-4 w-100">
+    <ul class="list-group mt-2 mb-4 w-100">
       <% @users.each do |user| %>
-        <li class="list-group-item my-2 border">
+        <li class="list-group-item my-2 border-0">
           <div class="media align-items-center">
-            <div class="user-photo mr-3">
+            <div class="user-photo mr-3 border p-3">
               <% if user.photo && user.photo.match(/\.(png|jpg|jpeg|gif)$/i) %>
                 <img src="<%= user.photo %>" alt="User Photo" style="width: 150px; height: 150px;">
               <% else %>
-                <div class="placeholder-image mr-3" style="width: 150px; height: 150px;">
+                <div class="placeholder-image" style="width: 150px; height: 150px;">
                   PhotoUser<%= user.id %>
                 </div>
               <% end %>
             </div>
-            <div class="media-body d-flex">
+            <div class="media-body d-flex border px-3 py-5">
               <h3 class="font-weight-bolder w-50">
                 <%= link_to user.name, user_path(user), title: "To User Details", class: "d-block stretched-link" %>
               </h3>
