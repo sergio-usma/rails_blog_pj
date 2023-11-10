@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-  # Setup a user for the tests
   let(:user) { FactoryBot.create(:user) }
 
   describe 'GET /users' do
@@ -35,11 +34,13 @@ RSpec.describe 'Users', type: :request do
         expect(response).to render_template(:show)
       end
 
-      it 'includes correct placeholder text in the response body' do
+      it 'includes correct content in the response body' do
         get user_path(user_id: user.id)
-        expect(response.body).to include('User Details')
-        expect(response.body).to include(user.name) # assuming user.name is 'User1' or similar
+        expect(response.body).to include('User Profile')
+        expect(response.body).to include(user.name)
         expect(response.body).to include('Number of posts:')
+        expect(response.body).to include('Post')
+        expect(response.body).to include('See all posts')
       end
     end
 

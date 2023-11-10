@@ -16,9 +16,22 @@ RSpec.describe 'Posts', type: :request do
         expect(response).to render_template(:index)
       end
 
-      it 'includes the user name in the response body' do
-        get user_posts_path(user_id: user.id)
-        expect(response.body).to include("User #{user.name} Posts")
+      it 'includes correct content in the response body' do
+        get user_path(user_id: user.id)
+
+        expect(response.body).to include('User Profile')
+        expect(response.body).to include(user.name)
+        expect(response.body).to include('User Photo')
+        expect(response.body).to include('Number of posts:')
+        expect(response.body).to include("#{user.name} Bio")
+
+        user.posts.each do |post|
+          expect(response.body).to include(post.title)
+          expect(response.body).to include(post.text)
+          expect(response.body).to include("Post #{post.id}")
+        end
+
+        expect(response.body).to include('See all posts')
       end
     end
 
