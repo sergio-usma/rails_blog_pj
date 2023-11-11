@@ -15,6 +15,8 @@
     </div>
   </div>
 
+<p><%= @post.likes.count %> Likes</p>
+
   <div class="row border">
     <div class="col-sm-12 bg-light p-3 rounded my-3">
       <div class="d-flex justify-content-between align-items-center">
@@ -32,6 +34,13 @@
       <p class="user-name">
         Post Text: <%= @post.text %>
       </p>
+    </div>
+
+    <div class="d-flex justify-content-center likes">
+      <%= render 'shared/likes_form' %>
+    </div>
+    <div class="d-flex justify-content-center likes">
+      <%= render 'shared/comments_form' %>
     </div>
 
     <div class="col-sm-12 bg-light p-3 rounded my-3">
