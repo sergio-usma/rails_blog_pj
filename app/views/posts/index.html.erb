@@ -25,6 +25,10 @@
     </div>
   </div>
 
+  <div class="text-center">
+    <%= link_to 'New Post', new_user_post_path(@user), class: 'btn btn-primary my-2 text-center' %>
+  </div>
+
   <div class="row px-3">
     <% if @posts.empty? %>
       <div class="col-sm-12 border rounded my-1">
