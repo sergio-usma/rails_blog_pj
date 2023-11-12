@@ -15,6 +15,8 @@
     </div>
   </div>
 
+<p><%= @post.likes.count %> Likes</p>
+
   <div class="row border">
     <div class="col-sm-12 bg-light p-3 rounded my-3">
       <div class="d-flex justify-content-between align-items-center">
@@ -27,12 +29,22 @@
         </div>
       </div>
       <h5 class="user-name">
-        Post Title: <%= @post.title %>
+        Title: <%= @post.title %>
       </h5>
       <p class="user-name">
-        Post Text: <%= @post.text %>
+        Text: <%= @post.text %>
       </p>
     </div>
+
+    <div class="d-flex justify-content-around w-100">
+      <div class="d-flex justify-content-center likes w-75">
+        <%= render 'shared/comments_form' %>
+      </div>
+      <div class="d-flex justify-content-center likes w-25">
+        <%= render 'shared/likes_form' %>
+      </div>
+    </div>
+
 
     <div class="col-sm-12 bg-light p-3 rounded my-3">
       <h4 class="user-name">Comments (<%= @post.comments.count %> comments):</h4>
@@ -53,7 +65,7 @@
   <div class="container mt-4">
     <div class="row">
       <div class="col text-center mb-3">
-        <%= link_to "Back to User Posts", user_posts_path(@user), class: "btn btn-primary" %>
+        <%= link_to "Back to all users", users_path(@user), class: "btn btn-primary" %>
       </div>
     </div>
   </div>
