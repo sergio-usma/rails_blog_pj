@@ -29,7 +29,6 @@ fourth_user = User.create(
   'photo' => 'https://i.pravatar.cc/150?img=47',
   'bio' => 'Emma is a Canadian environmental scientist born in Toronto in 1985. Her groundbreaking research on climate change and its impact on Arctic ecosystems has been widely recognized. Emma is an advocate for sustainable practices and has worked with various NGOs to promote environmental awareness and policy change.')
 
-
 ### Posts ###
 first_post = Post.create(author: first_user, 'title' => 'Post 1', 'text' => 'This is the text of post 1')
 second_post = Post.create(author: second_user, 'title' => 'Post 2', 'text' => 'This is the text of post 2')
