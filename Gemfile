@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 ruby '3.2.2'
+gem "bootstrap_form", "~> 5.4"
+gem 'kaminari'
+gem 'launchy', '~> 2.4', '>= 2.4.3'
 gem 'rails-controller-testing'
 gem 'rubocop', '>= 1.0', '< 2.0'
 
@@ -70,3 +73,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
 end
+
+gem 'cssbundling-rails', '~> 1.3'
+gem 'jsbundling-rails', '~> 1.2'
