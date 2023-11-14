@@ -35,19 +35,16 @@ RSpec.feature 'User Posts Page', type: :feature do
 
   scenario "When I click 'click user's post link, it redirects me to that post's show page" do
     visit user_posts_path(@user)
-    click_link 'Number of posts'
+    click_link 'Post'
 
-    # expect(page).to have_current_path(user_post_path(@user, @post))
-    expect(page).to have_current_path(user_posts_path(@user))
+    expect(page).to have_current_path(user_post_path(@user, @user.posts))
 
-    # expect(page).to have_content('Post 1')
     expect(page).to have_content('Post 1')
   end
 
   scenario "I can see a button that lets me view all of a user's posts" do
     visit user_path(@user)
 
-    # expect(page).to have_link('See all posts', href: user_post_path(@user, @post))
     expect(page).to have_link('See all posts', href: user_posts_path(@user))
   end
 end
