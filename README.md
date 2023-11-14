@@ -130,6 +130,11 @@ To run tests:
 - Twitter: [@VonUsma](https://twitter.com/vonusma)
 - LinkedIn: [Sergio Andres Usma](https://www.linkedin.com/in/sergiousma/)
 
+👤 **Author**
+
+- GitHub: [@Felipe-Perez-Ferraro](https://github.com/Felipe-Perez-Ferraro)
+- LinkedIn: [Felipe Perez Ferraro](https://www.linkedin.com/in/felipe-perez-ferraro-6b9358218/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
