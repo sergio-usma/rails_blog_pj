@@ -1,58 +1,45 @@
-<!DOCTYPE html>
-<html lang="en-EN">
-<head>
-  <title>Post Details</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 mb-3">
-      <h1 class="mt-2">Post Details</h1>
+    <div class="col-sm-12 my-3">
+      <h1 class="mt-2"> <%= @user.name %>'s Post Details</h1>
       <p class="lead">Here you can see details of the post.</p>
     </div>
   </div>
 
-<p><%= @post.likes.count %> Likes</p>
-
-  <div class="row border">
-    <div class="col-sm-12 bg-light p-3 rounded my-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="user-name py-3">
-          Post <%= @post.id %> by <%= link_to @user.name, user_path(@user), class: "text-dark", title: "To User Details" %>
-        </h5>
-        <div class="d-flex justify-content-around w-25 text-center">
-          <p><%= @post.comments.count %> comments</p>
-          <p><%= @post.likes.count %> Likes</p>
-        </div>
+  <div class="row">
+    <div class="col-sm-12 border rounded my-1">
+      <div class="align-items-baseline d-flex justify-content-between">
+        <h4 class="user-name py-3">
+          <%= link_to "Post #{@post.id}", user_posts_path(user_id: @user.id, id: @post.id), title: "To User Posts", class: "unstyled" %> by <%= link_to @user.name, user_path(@user), title: "To User Details", class: "unstyled" %>
+        </h4>
+        <p>Number of Comments: <%= @post.comments.count %></p>
+        <p>Number of Likes: <%= @post.likes.count %></p>
       </div>
-      <h5 class="user-name">
-        Title: <%= @post.title %>
-      </h5>
+      <h2 class="fs-2 user-name">
+        Post Title: <%= @post.title %>
+      </h2>
       <p class="user-name">
-        Text: <%= @post.text %>
+        Post Text: <%= @post.text %>
       </p>
     </div>
+  </div>
 
-    <div class="d-flex justify-content-around w-100">
-      <div class="d-flex justify-content-center likes w-75">
-        <%= render 'shared/comments_form' %>
-      </div>
-      <div class="d-flex justify-content-center likes w-25">
-        <%= render 'shared/likes_form' %>
-      </div>
-    </div>
+  <div class="d-flex justify-content-center likes my-2">
+    <%= render 'shared/likes_form' %>
+  </div>
 
+  <div class="d-flex justify-content-center likes">
+    <%= render 'shared/comments_form' %>
+  </div>
 
-    <div class="col-sm-12 bg-light p-3 rounded my-3">
-      <h4 class="user-name">Comments (<%= @post.comments.count %> comments):</h4>
+  <div class="row">
+    <div class="col-sm-12 border rounded my-3">
+      <h4 class="user-name">Recent Comments (<%= @post.comments.count %> comments):</h4>
       <ul class="list-unstyled">
         <% if @post.comments.empty? %>
           <li>No comments yet.</li>
         <% else %>
-          <% @post.comments.each do |comment| %>
+          <% @post.recent_comments.each do |comment| %>
             <li>
               <strong><%= comment.user.name %>:</strong> <%= comment.text %>
             </li>
@@ -62,14 +49,7 @@
     </div>
   </div>
 
-  <div class="container mt-4">
-    <div class="row">
-      <div class="col text-center mb-3">
-        <%= link_to "Back to all users", users_path(@user), class: "btn btn-primary" %>
-      </div>
-    </div>
+  <div class="d-flex justify-content-around my-3 text-center">
+    <%= link_to "Back to all users", users_path(@user), class: "btn btn-primary" %>
   </div>
 </div>
-
-</body>
-</html>
