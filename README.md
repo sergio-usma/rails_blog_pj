@@ -57,6 +57,12 @@ This is a project to build a blog app with Ruby on Rails. The main goal is to le
 
 - **Creating a data model**
 - **Processing data in models**
+- **Validations and Model specs**
+- **Setup and controllers**
+- **Controllers specs**
+- **Views**
+- **Forms**
+- **Integration specs for Views and fixing n+1 problems**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -128,12 +134,6 @@ To run tests:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **Validations and Model specs**
-- [ ] **Setup and controllers**
-- [ ] **Controllers specs**
-- [ ] **Views**
-- [ ] **Forms**
-- [ ] **Integration specs for Views and fixing n+1 problems**
 - [ ] **Add Devise**
 - [ ] **Add authorization rules**
 - [ ] **Add API endpoints**
