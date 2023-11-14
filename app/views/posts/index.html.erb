@@ -46,8 +46,8 @@
             <%= link_to "Post #{post.id}", user_post_path(user_id: @user.id, id: post.id),
                         title: "To Post Details", class: "unstyled" %>
           </h2>
-          <h3 class="user-name"><%= "Post #{post.id} - #{post.title}" %></h3>
-          <p class="user-name"><%= "Text #{post.id} - #{post.text}" %></p>
+          <h3 class="user-name"><%= "#{post.title}" %></h3>
+          <p class="user-name"><%= "#{post.text}" %></p>
         </div>
 
         <!-- Comments Section -->
@@ -58,7 +58,7 @@
           <% else %>
             <% post.comments.each do |comment| %>
               <p class="user-name">
-                <%= "Comment of Post #{comment.id} - " %>
+                <%= "#{comment.updated_at.strftime('%m/%d/%y %H:%M:%S')} - " %>
                 <%= comment.user.name %>: <%= comment.text %>
               </p>
             <% end %>
