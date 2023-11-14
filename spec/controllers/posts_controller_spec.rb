@@ -34,9 +34,9 @@ RSpec.describe PostsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Post' do
-        expect {
+        expect do
           post :create, params: { user_id: user.id, post: valid_attributes }
-        }.to change(Post, :count).by(1)
+        end.to change(Post, :count).by(1)
       end
 
       it 'assigns a newly created post as @post' do

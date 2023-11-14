@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '3.2.2'
-gem "bootstrap_form", "~> 5.4"
+gem 'bootstrap_form', '~> 5.4'
 gem 'kaminari'
 gem 'launchy', '~> 2.4', '>= 2.4.3'
 gem 'rails-controller-testing'
