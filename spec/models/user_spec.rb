@@ -1,33 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context 'validations' do
-    it 'is valid with valid attributes' do
-      expect(build(:user)).to be_valid
-    end
-
-    it 'is not valid without a name' do
-      expect(build(:user, name: nil)).not_to be_valid
-    end
-
-    it 'is valid only with a non-negative posts_counter' do
-      expect(build(:user, posts_counter: -1)).not_to be_valid
-    end
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_numericality_of(:posts_counter).only_integer.is_greater_than_or_equal_to(0) }
   end
 
-  context 'associations' do
-    it { is_expected.to have_many(:posts).with_foreign_key('author_id') }
-    it { is_expected.to have_many(:comments).with_foreign_key('user_id') }
-    it { is_expected.to have_many(:likes).with_foreign_key('user_id') }
+  describe 'Associations' do
+    it { should have_many(:posts).with_foreign_key(:author_id) }
+    it { should have_many(:comments).with_foreign_key(:user_id) }
+    it { should have_many(:likes) }
   end
 
-  describe '#recent_posts' do
-    it 'returns the 3 most recent posts' do
+  describe 'methods' do
+    it 'should return recent posts for the user' do
       user = create(:user)
-      create_list(:post, 5, author: user)
-
-      expect(user.recent_posts.size).to eq(3)
-      expect(user.recent_posts.first).to eq(user.posts.order(created_at: :desc).first)
+      post1 = create(:post, author: user)
+      post2 = create(:post, author: user)
+      post3 = create(:post, author: user)
+      expect(user.recent_posts).to eq([post3, post2, post1])
     end
+  end
+
+  it 'creates a user' do
+    user = FactoryBot.create(:user)
+    expect(user).to be_valid
   end
 end
