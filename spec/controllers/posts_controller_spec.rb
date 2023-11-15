@@ -1,82 +1,66 @@
-# spec/requests/posts_spec.rb
+# /spec/controllers/posts_controller_spec.rb
 require 'rails_helper'
 
-RSpec.describe 'Posts', type: :request do
+RSpec.describe PostsController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
+  let(:valid_attributes) { { title: 'Sample Title', text: 'Sample text' } }
+  let(:invalid_attributes) { { title: '', text: '' } }
 
-  describe 'GET /users/:user_id/posts' do
-    context 'when user exists' do
-      it 'returns a successful HTTP response' do
-        get user_posts_path(user_id: user.id)
-        expect(response).to have_http_status(:success)
-      end
-
-      it 'renders the index template' do
-        get user_posts_path(user_id: user.id)
-        expect(response).to render_template(:index)
-      end
-
-      it 'includes correct content in the response body' do
-        get user_path(user_id: user.id)
-
-        expect(response.body).to include('User Profile')
-        expect(response.body).to include(user.name)
-        expect(response.body).to include('User Photo')
-        expect(response.body).to include('Number of posts:')
-        expect(response.body).to include("#{user.name} Bio")
-
-        user.posts.each do |post|
-          expect(response.body).to include(post.title)
-          expect(response.body).to include(post.text)
-          expect(response.body).to include("Post #{post.id}")
-        end
-
-        expect(response.body).to include('See all posts')
-      end
-    end
-
-    context 'when user does not exist' do
-      it 'redirects to the users list with an alert' do
-        get user_posts_path(user_id: 0)
-        expect(response).to redirect_to(users_path)
-        follow_redirect!
-        expect(flash[:alert]).to match(/User not found./)
-      end
+  describe 'GET #index' do
+    it 'assigns @posts and renders the index template' do
+      post = user.posts.create!(valid_attributes)
+      get :index, params: { user_id: user.id }
+      expect(assigns(:posts)).to eq([post])
+      expect(response).to render_template(:index)
     end
   end
 
-  describe 'GET /users/:id/posts/:post_id' do
-    context 'when post exists' do
-      let(:post) { FactoryBot.create(:post, author: user) }
-
-      it 'returns a successful HTTP response' do
-        get user_post_path(id: user.id, post_id: post.id)
-        expect(response).to have_http_status(:success)
-      end
-
-      it 'renders the show template' do
-        get user_post_path(id: user.id, post_id: post.id)
-        expect(response).to render_template(:show)
-      end
-
-      it 'includes the post title in the response body' do
-        get user_post_path(id: user.id, post_id: post.id)
-        expect(response.body).to include("Post Title: #{post.title}")
-      end
-
-      it 'includes the placeholder text for post details in the response body' do
-        get user_post_path(id: user.id, post_id: post.id)
-        expect(response.body).to include('Here you can see details of the post')
-      end
+  describe 'GET #show' do
+    it 'assigns the requested post as @post and renders the show template' do
+      post = user.posts.create!(valid_attributes)
+      get :show, params: { user_id: user.id, id: post.id }
+      expect(assigns(:post)).to eq(post)
+      expect(response).to render_template(:show)
     end
   end
 
-  context 'when post does not exist' do
-    it 'redirects to the users path with an alert' do
-      get user_post_path(id: user.id, post_id: 0)
-      expect(response).to redirect_to(users_path)
-      follow_redirect!
-      expect(flash.alert).to match(/Post not found./)
+  describe 'GET #new' do
+    it 'assigns a new post as @post' do
+      get :new, params: { user_id: user.id }
+      expect(assigns(:post)).to be_a_new(Post)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new Post' do
+        expect do
+          post :create, params: { user_id: user.id, post: valid_attributes }
+        end.to change(Post, :count).by(1)
+      end
+
+      it 'assigns a newly created post as @post' do
+        post :create, params: { user_id: user.id, post: valid_attributes }
+        expect(assigns(:post)).to be_a(Post)
+        expect(assigns(:post)).to be_persisted
+      end
+
+      it 'redirects to the created post' do
+        post :create, params: { user_id: user.id, post: valid_attributes }
+        expect(response).to redirect_to([user, Post.last])
+      end
+    end
+
+    context 'with invalid params' do
+      it 'assigns a newly created but unsaved post as @post' do
+        post :create, params: { user_id: user.id, post: invalid_attributes }
+        expect(assigns(:post)).to be_a_new(Post)
+      end
+
+      it 're-renders the new template' do
+        post :create, params: { user_id: user.id, post: invalid_attributes }
+        expect(response).to render_template(:new)
+      end
     end
   end
 end

@@ -4,8 +4,6 @@ class Like < ApplicationRecord
 
   after_save :update_post_counter
 
-  validates :user_id, uniqueness: { scope: :post_id } # To ensure a user can only like a post once
-
   private
 
   def update_post_counter

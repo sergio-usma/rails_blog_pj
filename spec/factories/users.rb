@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :user do
-    name { 'John Doe' }
-    photo { 'https://example.com/photo.jpg' }
-    bio { 'User bio' }
+    name { 'Pablo Bonasera' }
+    bio { 'A user bio' }
     posts_counter { 0 }
   end
 end

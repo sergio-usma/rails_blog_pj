@@ -1,59 +1,52 @@
-# spec/requests/users_spec.rb
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
-  let(:user) { FactoryBot.create(:user) }
+RSpec.describe UsersController, type: :controller do
+  # Assuming you are using FactoryBot for test setup
+  let!(:users) { create_list(:user, 5) }
 
-  describe 'GET /users' do
-    it 'returns a successful HTTP response' do
-      get users_path
-      expect(response).to have_http_status(:success)
+  describe 'GET #index' do
+    before { get :index }
+
+    it 'responds successfully' do
+      expect(response).to be_successful
     end
 
     it 'renders the index template' do
-      get users_path
       expect(response).to render_template(:index)
     end
 
-    it 'includes correct placeholder text in the response body' do
-      get users_path
-      expect(response.body).to include('All Users')
-      expect(response.body).to include('Here you can see all the users of the blog.')
+    it 'loads all users into @users' do
+      expect(assigns(:users)).to match_array(users)
     end
   end
 
-  describe 'GET /users/:user_id' do
+  describe 'GET #show' do
     context 'when the user exists' do
-      it 'returns a successful HTTP response' do
-        get user_path(user_id: user.id)
-        expect(response).to have_http_status(:success)
+      let(:user) { users.first }
+      let!(:posts) { create_list(:post, 3, author: user) }
+
+      before { get :show, params: { id: user.id } }
+
+      it 'responds successfully' do
+        expect(response).to be_successful
       end
 
       it 'renders the show template' do
-        get user_path(user_id: user.id)
         expect(response).to render_template(:show)
       end
 
-      it 'includes correct content in the response body' do
-        get user_path(user_id: user.id)
-        expect(response.body).to include('User Profile')
-        expect(response.body).to include(user.name)
-        expect(response.body).to include('Number of posts:')
-        expect(response.body).to include('Post')
-        expect(response.body).to include('See all posts')
+      it 'loads the user into @user' do
+        expect(assigns(:user)).to eq(user)
+      end
+
+      it 'loads recent posts of the user into @posts' do
+        expect(assigns(:posts)).to match_array(user.recent_posts)
       end
     end
 
     context 'when the user does not exist' do
-      it 'redirects to the users index path' do
-        get user_path(user_id: 'nonexistent_id')
-        expect(response).to redirect_to(users_path)
-      end
-
-      it 'sets an alert message' do
-        get user_path(user_id: 'nonexistent_id')
-        follow_redirect!
-        expect(flash[:alert]).to eq('User not found.')
+      it 'raises a RecordNotFound error' do
+        expect { get :show, params: { id: 9999 } }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

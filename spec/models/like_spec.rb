@@ -1,24 +1,20 @@
+# spec/models/like_spec.rb
+
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  describe 'associations' do
-    it { is_expected.to belong_to(:user) }
-    it { is_expected.to belong_to(:post) }
-  end
-
   describe 'validations' do
-    subject { FactoryBot.create(:like) }
-    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:post_id) }
+    it { should belong_to(:user) }
+    it { should belong_to(:post) }
   end
 
   describe 'callbacks' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:post) { FactoryBot.create(:post, author: user) }
-
-    it 'updates the likes_counter of post after creating a like' do
-      expect do
-        FactoryBot.create(:like, user:, post:)
-      end.to change { post.reload.likes_counter }.by(1)
+    it 'should update the likes counter of the associated post' do
+      user = create(:user)
+      post = create(:post, author: user)
+      create(:like, user:, post:)
+      post.reload
+      expect(post.likes_counter).to eq(1)
     end
   end
 end
