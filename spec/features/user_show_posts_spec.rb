@@ -4,7 +4,7 @@ RSpec.feature 'User Posts Page', type: :feature do
   before do
     # create a user with some posts
     @user = User.create(name: 'User 1', photo: 'url1', bio: 'Bio 1', posts_counter: 3)
-    @user.posts.create(title: 'Post 1', text: 'Text 1')
+    @post = @user.posts.create(title: 'Post 1', text: 'Text 1')
     @user.posts.create(title: 'Post 2', text: 'Text 2')
     @user.posts.create(title: 'Post 3', text: 'Text 3')
   end
@@ -35,11 +35,11 @@ RSpec.feature 'User Posts Page', type: :feature do
 
   scenario "When I click 'click user's post link, it redirects me to that post's show page" do
     visit user_posts_path(@user)
-    click_link 'Post'
+    first('.post-link').click
 
-    expect(page).to have_current_path(user_post_path(@user, @user.posts))
+    expect(page).to have_current_path(user_post_path(@user, @post))
 
-    expect(page).to have_content('Post 1')
+    expect(page).to have_content('Post Details')
   end
 
   scenario "I can see a button that lets me view all of a user's posts" do
