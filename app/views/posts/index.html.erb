@@ -44,7 +44,7 @@
         <div class="col-sm-12 border rounded my-1">
           <h2 class="user-name py-3">
             <%= link_to "Post #{post.id}", user_post_path(user_id: @user.id, id: post.id),
-                        title: "To Post Details", class: "unstyled" %>
+                        title: "To Post Details", class: "unstyled post-link", id: { post_id: post.id } %>
           </h2>
           <h3 class="user-name"><%= "#{post.title}" %></h3>
           <p class="user-name"><%= "#{post.text}" %></p>
