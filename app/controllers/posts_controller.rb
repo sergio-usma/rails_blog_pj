@@ -29,14 +29,16 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
 
-    def destroy # rubocop:disable Lint/NestedMethodDefinition
-      @post = Post.find(params[:id])
-      author = @post.author
-      author.decrement!(:posts_counter)
-      @post.destroy!
-      redirect_to user_posts_path(id: author.id), notice: 'Post deleted!'
-    end
+  def destroy
+    authenticate_user!
+
+    @post = Post.find(params[:id])
+    author = @post.author
+    author.decrement!(:posts_counter)
+    @post.destroy!
+    redirect_to user_posts_path(id: author.id), notice: 'Post deleted!'
   end
 
   private
