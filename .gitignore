@@ -37,6 +37,7 @@
 /.idea
 /.idea/*
 /node_modules
+.iml
 ```
 
 /app/assets/builds/*

@@ -74,5 +74,9 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0'
 end
 
+gem 'devise', '~> 4.9'
+gem 'erb-formatter'
+gem 'rails-ujs'
+
 gem 'cssbundling-rails', '~> 1.3'
 gem 'jsbundling-rails', '~> 1.2'
