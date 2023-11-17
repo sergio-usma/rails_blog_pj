@@ -63,6 +63,7 @@ This is a project to build a blog app with Ruby on Rails. The main goal is to le
 - **Views**
 - **Forms**
 - **Integration specs for Views and fixing n+1 problems**
+- **Devise added for users validation**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -139,7 +140,6 @@ To run tests:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **Add Devise**
 - [ ] **Add authorization rules**
 - [ ] **Add API endpoints**
 - [ ] **API documentation**
