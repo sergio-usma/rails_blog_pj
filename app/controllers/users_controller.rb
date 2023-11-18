@@ -5,7 +5,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @posts = @user.posts
+    case params[:id]
+    when 'sign_out'
+      sign_out current_user
+      redirect_to root_path
+    when 'sign_in'
+      redirect_to new_user_session_path
+    when 'sign_up'
+      redirect_to new_user_registration_path
+    else
+      @user = User.find(params[:id])
+      @posts = @user.posts
+    end
   end
 end
