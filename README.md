@@ -121,6 +121,7 @@ Run rails server in http://127.0.0.1:3000/
 ```sh
   rails s
 ```
+**Note:** Access to admin user sarahpatel@example.com password: password.
 
 To run Rails console:
 
