@@ -104,8 +104,16 @@ Go to your /blog-app folder:
 
 ```sh
   bundle install
-  rails server
 ```
+
+```sh
+  npm install
+```
+
+```sh
+  rails db:create db:migrate db:seed
+```
+
 To run Rails console:
 
 ```sh
@@ -118,9 +126,9 @@ To run Rails console:
 To run tests:
 
 ```sh
-  cd blog-app
   bundle install
-  rspec spec
+  bundle exec rake db:test:prepare
+  rspec
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
