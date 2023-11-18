@@ -102,16 +102,24 @@ Clone this repository to your desired folder:
 
 Go to your /blog-app folder:
 
+Install gems
+
 ```sh
   bundle install
 ```
+Install npm dependencies
 
 ```sh
   npm install
 ```
+Create database, migrations and seed records
 
 ```sh
   rails db:create db:migrate db:seed
+```
+Run rails server in http://127.0.0.1:3000/
+```sh
+  rails s
 ```
 
 To run Rails console:
