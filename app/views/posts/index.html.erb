@@ -1,5 +1,5 @@
 <div class="container">
-  <!-- User Header Section -->
+
   <div class="row">
     <div class="col-sm-12">
       <h1 class="mt-2"><%= @user.name %>'s Posts</h1>
@@ -7,7 +7,6 @@
     </div>
   </div>
 
-  <!-- User Info and Photo Section -->
   <div class="row">
     <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-2 d-none d-sm-block">
       <div class="user-photo">
@@ -28,12 +27,10 @@
     </div>
   </div>
 
-  <!-- New Post Link -->
   <div class="text-center">
     <%= link_to 'New Post', new_user_post_path(@user), class: 'btn btn-primary my-2' %>
   </div>
 
-  <!-- Posts List -->
   <div class="row">
     <% if @posts.empty? %>
       <div class="col-sm-12 border rounded my-1">
@@ -50,7 +47,6 @@
           <p class="user-name"><%= "#{post.text}" %></p>
         </div>
 
-        <!-- Comments Section -->
         <div class="col-sm-12 border rounded mb-5">
           <h4 class="user-name">Comments:</h4>
           <% if post.comments.empty? %>
@@ -73,7 +69,6 @@
   </div>
 </div>
 
-<!-- Pagination and Back Link -->
 <div class="container">
   <div class="row">
     <div class="col-12 text-center mb-3">
